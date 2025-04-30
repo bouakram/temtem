@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
     ActivityIndicator,
     Alert,
@@ -19,20 +19,20 @@ const HomeScreen = () => {
     const [coutry, setCountry] = useState('Algeria');
     const [elemToDisplay, setElemToDisplay] = useState(5);
     const [showMore, setshowMore] = useState(false);
-    const {data, isFetching, isError, error} = temtemServicesApi.useGetTemtemServicesQuery(coutry);
-
-    const services = useMemo(() => {
-        return data;
-    },[data]);
+    const {data: services, isFetching, isError, error} = temtemServicesApi.useGetTemtemServicesQuery(coutry);
 
     const laodMoreData = useCallback(() => {
-        services && setElemToDisplay(services.length);
-        setshowMore(true);
+        if(services){
+            setElemToDisplay(services.length);
+            setshowMore(true);
+        }
     }, [services]);
 
     const laodLesseData = useCallback(() => {
-        services && setElemToDisplay(5);
-        setshowMore(false);
+        if(services) {
+            setElemToDisplay(5);
+            setshowMore(false);
+        }
     }, [services]);
 
     if (isFetching) {
@@ -57,22 +57,38 @@ const HomeScreen = () => {
             <SectionHeaderComponent />
             <View style={styles.servicesContainer}>
             {
-                services && (services.length > 0 && services.length < 6) ?
-                services.map((item, index) => {
-                    return <SousAppComponent key={item._id} idx={index} name={item.name} logo={item.logo} bgColor={item.customizations?.color} numElm={elemToDisplay}
-                />;})
+                services && services.length < 6
+                ?
+                services.map((item, index) => (
+                    <SousAppComponent
+                        key={item._id}
+                        idx={index}
+                        name={item.name}
+                        logo={item.logo}
+                        bgColor={item.customizations?.color}
+                        numElm={elemToDisplay}
+                    />
+                ))
                 :
-                services && services.length >= 6 ?
-                services.slice(0, elemToDisplay).map((item, index) => {
-                    return <SousAppComponent key={item._id} idx={index} name={item.name} logo={item.logo} bgColor={item.customizations?.color} numElm={elemToDisplay}
-                />;})
+                services && services.length >= 6
+                ?
+                services.slice(0, elemToDisplay).map((item, index) => (
+                    <SousAppComponent
+                        key={item._id}
+                        idx={index}
+                        name={item.name}
+                        logo={item.logo}
+                        bgColor={item.customizations?.color}
+                        numElm={elemToDisplay}
+                    />
+                ))
                 :
                 <View style={styles.externalContainer}>
                     <Text>No Services to display.</Text>
                 </View>
             }
             {
-                services && !showMore ? (
+                (services && (services.length > elemToDisplay || showMore)) && (
                     <MotiView
                         from={{opacity: 0, scale: 0.2}}
                         animate={{opacity: 1, scale: 1}}
@@ -82,27 +98,13 @@ const HomeScreen = () => {
                             delay: 100 * elemToDisplay,
                         }}
                     >
-                        <AddMoreServicesComponent laodData={laodMoreData} text={'Autres Services'} add={true} />
+                        <AddMoreServicesComponent
+                            laodData={!showMore ? laodMoreData : laodLesseData}
+                            text={!showMore ? 'Autres Services' : 'Moin Services'}
+                            add={!showMore}
+                        />
                     </MotiView>
                 )
-                : services && (services.length >= 6 && showMore) ? (
-                    <MotiView
-                        from={{opacity: 0, scale: 0.2}}
-                        animate={{opacity: 1, scale: 1}}
-                        exit={{opacity: 0, scale: 0.2}}
-                        transition={{
-                            duration: 400,
-                            delay: 100 * elemToDisplay,
-                        }}
-                        exitTransition={{
-                            duration: 400 ,
-                            delay: 100 * elemToDisplay,
-                        }}
-                    >
-                        <AddMoreServicesComponent laodData={laodLesseData} text={'Moin Services'} add={false} />
-                    </MotiView>
-                )
-                : null
             }
             </View>
         </ScrollView>
