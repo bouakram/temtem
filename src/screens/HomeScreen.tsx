@@ -21,6 +21,7 @@ const HomeScreen = () => {
     const [showMore, setshowMore] = useState(false);
     const {data: services, isFetching, isError, error} = temtemServicesApi.useGetTemtemServicesQuery(coutry);
 
+    // handling show more services
     const laodMoreData = useCallback(() => {
         if(services){
             setElemToDisplay(services.length);
@@ -28,6 +29,7 @@ const HomeScreen = () => {
         }
     }, [services]);
 
+    // handling show less services.
     const laodLesseData = useCallback(() => {
         if(services) {
             setElemToDisplay(5);
@@ -57,6 +59,7 @@ const HomeScreen = () => {
             <SectionHeaderComponent />
             <View style={styles.servicesContainer}>
             {
+                // if the souApp are less then 6 display em all.
                 services && services.length < 6
                 ?
                 services.map((item, index) => (
@@ -70,6 +73,7 @@ const HomeScreen = () => {
                     />
                 ))
                 :
+                // if the souApp are more then 5 display the first 5 and display the rest when pressing loadmore
                 services && services.length >= 6
                 ?
                 services.slice(0, elemToDisplay).map((item, index) => (
@@ -83,11 +87,13 @@ const HomeScreen = () => {
                     />
                 ))
                 :
+                // if there is no service to display.
                 <View style={styles.externalContainer}>
                     <Text>No Services to display.</Text>
                 </View>
             }
             {
+                // toggle displaying the button; if there is data to display or hide => show the button if not => don't show the button at all.
                 (services && (services.length > elemToDisplay || showMore)) && (
                     <MotiView
                         from={{opacity: 0, scale: 0.2}}
