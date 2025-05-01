@@ -37,7 +37,7 @@ export const temtemServicesApi = createApi({
       transformResponse: (response: TemtemServicesResponse) : SousAppType[] => {
         return response.data.apps.Algeria.sousApps.reduce((acc: SousAppType[], sousApp: SousAppType) => [...acc, {
             _id: sousApp._id,
-            logo: sousApp.logo,
+            logo: sousApp.logo.replace('temtemone-prod.s3', 'temtemone-prod-fd.s3'),
             name: sousApp.name,
             customizations: {
                 color: sousApp.customizations?.color,
