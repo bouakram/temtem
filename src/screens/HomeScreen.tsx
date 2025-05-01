@@ -95,21 +95,21 @@ const HomeScreen = () => {
             {
                 // toggle displaying the button; if there is data to display or hide => show the button if not => don't show the button at all.
                 (services && (services.length > elemToDisplay || showMore)) && (
-                    <MotiView
-                        from={{opacity: 0, scale: 0.2}}
-                        animate={{opacity: 1, scale: 1}}
-                        exit={{opacity: 0, scale: 0.2}}
-                        transition={{
-                            duration: 400,
-                            delay: 100 * elemToDisplay,
-                        }}
-                    >
+                    // <MotiView
+                    //     from={{opacity: 0, scale: 0.2}}
+                    //     animate={{opacity: 1, scale: 1}}
+                    //     exit={{opacity: 0, scale: 0.2}}
+                    //     transition={{
+                    //         duration: 400,
+                    //         delay: 100 * elemToDisplay,
+                    //     }}
+                    // >
                         <AddMoreServicesComponent
                             laodData={!showMore ? laodMoreData : laodLesseData}
                             text={!showMore ? 'Autres Services' : 'Moin Services'}
                             add={!showMore}
                         />
-                    </MotiView>
+                    // </MotiView>
                 )
             }
             </View>
