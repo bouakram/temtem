@@ -17,9 +17,9 @@ const AddMoreServicesComponent: React.FC<AddMoreServicesPropsType> = ({laodData,
             <View style={styles.icon}>
                 {
                 add ?
-                <Icon name="plus-circle" size={24} color="#ea580c" />
+                <Icon name="plus-circle" size={20} color="#ea580c" />
                 :
-                <Icon name="minus-circle" size={24} color="#ea580c" />
+                <Icon name="minus-circle" size={20} color="#ea580c" />
                 }
             </View>
         </View>
@@ -52,8 +52,8 @@ const styles = StyleSheet.create({
     },
     circleBackground: {
         position: 'absolute',
-        width: 60,
-        height: 60,
+        width: 45,
+        height: 45,
         borderRadius: 30,
         opacity: 0.1,
     },
