@@ -7,12 +7,10 @@ import {
     Text,
     View,
 } from 'react-native';
-// import { temtemServicesApi, useGetTemtemServicesQuery } from '../store/temtemSlice/temtemServices.APISlice';
 import { temtemServicesApi } from '../store/temtemSlice/temtemServices.APISlice';
 import SousAppComponent from '../components/SousApp.component';
 import SectionHeaderComponent from '../components/SectionHeader.component';
 import AddMoreServicesComponent from '../components/AddMoreServices.component';
-import { MotiView } from 'moti';
 
 const HomeScreen = () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -95,21 +93,11 @@ const HomeScreen = () => {
             {
                 // toggle displaying the button; if there is data to display or hide => show the button if not => don't show the button at all.
                 (services && (services.length > elemToDisplay || showMore)) && (
-                    // <MotiView
-                    //     from={{opacity: 0, scale: 0.2}}
-                    //     animate={{opacity: 1, scale: 1}}
-                    //     exit={{opacity: 0, scale: 0.2}}
-                    //     transition={{
-                    //         duration: 400,
-                    //         delay: 100 * elemToDisplay,
-                    //     }}
-                    // >
                         <AddMoreServicesComponent
                             laodData={!showMore ? laodMoreData : laodLesseData}
                             text={!showMore ? 'Autres Services' : 'Moin Services'}
                             add={!showMore}
                         />
-                    // </MotiView>
                 )
             }
             </View>
