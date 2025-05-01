@@ -14,19 +14,23 @@ type SouAppPropsType ={
 
 const SousAppComponent: React.FC<SouAppPropsType> = ({idx, name, logo, bgColor, numElm}) => {
     return (
-        <MotiView
+        // <MotiView
+        //     style={styles.container}
+        //     from={{opacity: 0, scale: 0.2}}
+        //     animate={{opacity: 1, scale: 1}}
+        //     exit={{opacity: 0, scale: 0.2}}
+        //     transition={{
+        //         duration: numElm > 5 ? 400 : 400,
+        //         delay: numElm > 5 ? 0 : 100 * idx,
+        //     }}
+        // >
+        <View
             style={styles.container}
-            from={{opacity: 0, scale: 0.2}}
-            animate={{opacity: 1, scale: 1}}
-            exit={{opacity: 0, scale: 0.2}}
-            transition={{
-                duration: numElm > 5 ? 400 : 400,
-                delay: numElm > 5 ? 0 : 100 * idx,
-            }}
         >
             <View style={styles.imageContainer}>
-                <View style={[styles.circleBackground, {backgroundColor: bgColor !== undefined ? bgColor : COLORS[idx]}]}/>
-                <Image source={{uri: IMAGES[idx] }} alt={'item.name'} style={styles.image}/>
+                {/* <View style={[styles.circleBackground, {backgroundColor: bgColor !== undefined ? bgColor : COLORS[idx]}]}/> */}
+                {/* <Image source={{uri: IMAGES[idx] }} alt={'item.name'} style={styles.image}/> */}
+                <Image source={{uri: logo }} alt={'item.name'} style={styles.image}/>
             </View>
             <View style={styles.textContainer}>
                 <Text
@@ -39,7 +43,7 @@ const SousAppComponent: React.FC<SouAppPropsType> = ({idx, name, logo, bgColor, 
                     {name}
                 </Text>
             </View>
-        </MotiView>
+        </View>
     );
 };
 
