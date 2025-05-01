@@ -1,35 +1,23 @@
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
-import { COLORS } from '../constants/styles';
-import { MotiView } from 'moti';
-import { IMAGES } from '../constants/images';
 
 type SouAppPropsType ={
-    idx: number;
+    idx?: number;
     name: string;
     logo: string;
     bgColor?: string;
-    numElm: number;
+    numElm?: number;
 }
 
-const SousAppComponent: React.FC<SouAppPropsType> = ({idx, name, logo, bgColor, numElm}) => {
+const SousAppComponent: React.FC<SouAppPropsType> = ({
+    name,
+    logo,
+}) => {
     return (
-        // <MotiView
-        //     style={styles.container}
-        //     from={{opacity: 0, scale: 0.2}}
-        //     animate={{opacity: 1, scale: 1}}
-        //     exit={{opacity: 0, scale: 0.2}}
-        //     transition={{
-        //         duration: numElm > 5 ? 400 : 400,
-        //         delay: numElm > 5 ? 0 : 100 * idx,
-        //     }}
-        // >
         <View
             style={styles.container}
         >
             <View style={styles.imageContainer}>
-                {/* <View style={[styles.circleBackground, {backgroundColor: bgColor !== undefined ? bgColor : COLORS[idx]}]}/> */}
-                {/* <Image source={{uri: IMAGES[idx] }} alt={'item.name'} style={styles.image}/> */}
                 <Image source={{uri: logo }} alt={'item.name'} style={styles.image}/>
             </View>
             <View style={styles.textContainer}>
